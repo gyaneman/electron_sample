@@ -5,7 +5,12 @@ html
     title jadeで!
     link(rel='stylesheet', href='../node_modules/bootstrap/dist/css/bootstrap.min.css')
     script(type='text/javascript' src='../node_modules/vue/dist/vue.min.js')
+    script(type='text/javascript' src='../node_modules/jquery/dist/jquery.min.js')
+    
   body
     #app
-      h1 {{hello}}
+      ul
+        li(v-repeat='areaList')
+          | {{area}}
     script(type='text/javascript' src='./index.js')
+    script(type='text/javascript' src='./weather.js')
