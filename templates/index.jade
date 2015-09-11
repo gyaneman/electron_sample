@@ -8,9 +8,14 @@ html
     script(type='text/javascript' src='../node_modules/jquery/dist/jquery.min.js')
     
   body
-    #app
+    .local-weather
+      h1 {{title}}
+      p {{date}}
+      p {{description}}
+    .app  
+      h1 一覧
       ul
-        li(v-repeat='areaList')
-          | {{area}}
+        li(v-repeat='item in areaList', v-on='click: onClick(item)')
+          | {{item.area}}
     script(type='text/javascript' src='./index.js')
     script(type='text/javascript' src='./weather.js')

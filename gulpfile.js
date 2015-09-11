@@ -2,16 +2,24 @@ var gulp = require('gulp')
 var coffee = require('gulp-coffee')
 var jade = require('gulp-jade')
 
+var coffeeFiles = 'src/*.coffee'
+var jadeFiles = 'templates/*.jade'
+
 gulp.task('coffee', function(){
-  return gulp.src(['src/*.coffee'])
+  gulp.src([coffeeFiles])
     .pipe(coffee())
     .pipe(gulp.dest('dest'));
 });
 
 gulp.task('jade', function() {
-  return gulp.src('templates/*.jade')
+  gulp.src([jadeFiles])
     .pipe(jade())
     .pipe(gulp.dest('dest'))
+});
+
+gulp.task('watch', function() {
+  gulp.watch(coffeeFiles, ['coffee'])
+  gulp.watch(jadeFiles, ['jade'])
 });
 
 gulp.task('default',['coffee', 'jade'], function(){

@@ -3,6 +3,22 @@
 
 $ = require('jquery')
 
+vueArea = new Vue
+  el: '.app'
+  data:
+    areaList: []
+  methods:
+    onClick: (item) ->
+      console.log(item.area)
+      getWeatherIn(item.id)
+
+vueLocalWeather = new Vue
+  el: '.local-weather'
+  data:
+    date: ''
+    title: ''
+    description: ''
+
 $.ajax
   async: true
   cache: false
@@ -17,12 +33,7 @@ $.ajax
       title = $(@).attr('title')
       id = $(@).attr('id')
       areaList.push({area: title, id: id})
-      console.log(id)
-    vue = new Vue
-      el: '#app'
-      data:
-        hello: 'hello, world'
-        areaList: areaList
+    vueArea.areaList = areaList
 
 getWeatherIn = (id) ->
   $.ajax
@@ -35,4 +46,7 @@ getWeatherIn = (id) ->
     error: ->
       alert('Error loading Weather JSON document')
     success: (json) ->
-      alert(json)
+      vue = vueLocalWeather
+      vue.date = json.publicTime
+      vue.title = json.title
+      vue.description = json.description.text
